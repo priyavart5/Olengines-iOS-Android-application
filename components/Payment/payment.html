@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
+    <style>
+        .container{
+            width: 100%;
+            display: flex;
+        }
+        .total{
+            width: 90%;
+            font-family: 'Montserrat';
+            font-size: 20px;
+            margin-left: 18px;
+        }
+        #amount{
+            font-family: 'Montserrat';
+            margin-left: 40%;
+            font-size: 20px;
+        }
+        #rzp-button1{
+            width: 96%;
+            height: 12vh;
+            font-family: 'Montserrat';
+            font-size: 20px;
+            background-color: #FF3939;
+            color: #fff;
+            border-radius:20px;
+            font-weight: 900;
+            margin-top:146%;
+            margin-left:2% ;
+        }
+        </style>
+</head>
+<body>
+    <div class="container">
+        <p class="total">Bag Total<span id="amount">9463.90</span></p>
+    </div>
+    <button id="rzp-button1">Pay Now</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    
+var options = {
+    "key": "rzp_test_rEBMgOInrva7KX", 
+    "amount": Number(document.getElementById('amount').innerHTML)*100, 
+    "currency": "INR",
+    "name": "Olengines",
+    "description": "Test Transaction",
+    "image": "https://user-images.githubusercontent.com/96736133/170038375-cea8e3ce-dd29-449a-9dd5-3b3feb10ab97.png",
+    /* "order_id": "order_9A33XWu170gUtm",  *///This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        alert("Payment succesful")
+    },
+
+    "theme": {
+        "color": "#FF3939"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+     alert("Payemnet Failed");
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+</body>
+</html>
